@@ -22,13 +22,9 @@
             data.mail = document.getElementById('mail').value;
             data.comment = document.getElementById('comment').value;
 
-            console.log(data);
-
             data = JSON.stringify(data);
 
-            console.log(data);
-
-            const url = "kek"; //url сервера
+            const url = "http://localhost:1337/data"; //url сервера
             var xhr = new XMLHttpRequest();
             xhr.open('POST', url);
             xhr.send(data);
