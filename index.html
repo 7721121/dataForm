@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src = "https://unpkg.com/react@15/dist/react.js"></script>
+    <script src = "https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+    <script src = "https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>
+    <link rel="stylesheet" href="main.css">
+    <title>Форма обратной связи</title>
+
+    <script type="text/javascript">
+        function sendData() {
+            var data = {
+                name: "",
+                phone: "",
+                mail: "",
+                comment: ""
+            };
+
+            data.name = document.getElementById('name').value;
+            data.phone = document.getElementById('phone').value;
+            data.mail = document.getElementById('mail').value;
+            data.comment = document.getElementById('comment').value;
+
+            console.log(data);
+
+            data = JSON.stringify(data);
+
+            console.log(data);
+
+            const url = "kek"; //url сервера
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', url);
+            xhr.send(data);
+        }
+    </script>
+
+    <script type="text/babel">
+        var Comform = React.createClass({
+            render:function(){
+                return (
+                        <div id="form">
+                            <form action="#">
+                                <button id="close" onClick={CloseForm}>×</button>
+                                <h1>Обратная связь</h1>
+                                <h3>Оставьте нам Ваши данные, и мы свяжемся с Вами</h3>
+                                <p><span>Ваше имя:</span><input id="name" type="text" required /></p>
+                                <p><span>Ваш телефон:</span><input id="phone" type="tel" required /></p>
+                                <p><span>Ваш e-mail:</span><input id="mail" type="email" required /></p>
+                                <p><span>Комментарий:</span><input id="comment" type="text" /></p>
+                                <p><input type="submit" value="Отправить" onClick={SendForm}/></p>
+                            </form>
+                        </div>
+                );
+            }
+        });
+
+        var Default = React.createClass({
+            render:function () {
+                return (
+                        <button id="make" onClick={Render}>Оставить отзыв</button>
+                );
+            }
+        });
+
+        function RenderDefault() {
+            ReactDOM.render(<Default />, document.getElementById('root'));
+        }
+
+        function Render() {
+            ReactDOM.render(<Comform />, document.getElementById('root'));
+        }
+
+        function CloseForm() {
+            ReactDOM.render(<div></div>, document.getElementById('root'));
+            RenderDefault();
+        }
+
+        function SendForm() {
+            sendData();
+            ReactDOM.render(<div id="sucess">Данные отправлены!</div>, document.getElementById('root'));
+        }
+
+        RenderDefault();
+    </script>
+
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
